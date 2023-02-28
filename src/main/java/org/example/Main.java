@@ -17,7 +17,22 @@ public class Main {
         private static final long serialVersionUID = 1L;
         private JTextField textField;
         private JButton[] botoes;
-        private String[] simbolos = {"7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "0", ".", "=", "/"};
+        private String[] simbolos = {"7",
+                "8",
+                "9",
+                "+",
+                "4",
+                "5",
+                "6",
+                "-",
+                "1",
+                "2",
+                "3",
+                "*",
+                "0",
+                ".",
+                "=",
+                "/"};
         private double valor1, valor2, resultado;
         private String operacao;
 
@@ -79,5 +94,42 @@ public class Main {
                 valor1 = Double.parseDouble(textField.getText());
                 operacao = "*";
                 textField.setText("");
-            }}}
-}
+            } else if (e.getSource() == botoes[12]) {
+                textField.setText(textField.getText() + "0");
+            } else if (e.getSource() == botoes[13]) {
+                textField.setText(textField.getText() + ".");
+            } else if (e.getSource() == botoes[14]) {
+                if (operacao == null) {
+                    return; // Não há operação para executar
+                }
+                valor2 = Double.parseDouble(textField.getText());
+                switch (operacao) {
+                    case "+":
+                        resultado = valor1 + valor2;
+                        break;
+                    case "-":
+                        resultado = valor1 - valor2;
+                        break;
+                    case "*":
+                        resultado = valor1 * valor2;
+                        break;
+                    case "/":
+                        if (valor2 == 0) {
+                            textField.setText("Erro: divisão por zero");
+                            return;
+                        } else {
+                            resultado = valor1 / valor2;
+                        }
+                        break;
+                }
+                textField.setText(String.valueOf(resultado));
+                operacao = null;
+            } else if (e.getSource() == botoes[15]) {
+                valor1 = Double.parseDouble(textField.getText());
+                operacao = "/";
+                textField.setText("");
+            }
+        }
+        }}
+
+
